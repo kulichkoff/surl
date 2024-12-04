@@ -14,6 +14,7 @@ func handleCreate(ctx echo.Context) error {
 	}
 	shortened, err := usecase.CreateShortenedLink(dto.Link)
 	if err != nil {
+		ctx.Logger().Errorf("Failed to create shortened link: %v", err)
 		return echo.ErrInternalServerError
 	}
 
@@ -23,5 +24,17 @@ func handleCreate(ctx echo.Context) error {
 }
 
 func handleFindOne(ctx echo.Context) error {
-	return nil
+	slug := ctx.Param("slug")
+	link, err := usecase.FindOneLink(slug)
+	if err != nil {
+		ctx.Logger().Errorf("Find one link error: %v", err)
+		ctx.Logger().Printf("slug: %s; link: %s", slug, link)
+		return echo.ErrInternalServerError
+	}
+	if link == "" {
+		return echo.ErrNotFound
+	}
+	return ctx.JSON(200, echo.Map{
+		"link": link,
+	})
 }

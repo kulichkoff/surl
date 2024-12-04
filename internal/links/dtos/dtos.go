@@ -1,5 +1,5 @@
 package dtos
 
 type CreateLinkDTO struct {
-	Link string
+	Link string `json:"link"`
 }
