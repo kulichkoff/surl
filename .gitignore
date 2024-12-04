@@ -1,0 +1,9 @@
+build/
+
+.idea/
+.vscode/
+.zed/
+
+./surl
+
+**/.DS_STORE
