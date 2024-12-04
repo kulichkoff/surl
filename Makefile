@@ -7,7 +7,7 @@ check:
 	go vet ./...
 
 run:
-	go run cmd/HellPot/*.go
+	go run cmd/surl/*.go
 
 deps:
 	go mod tidy -v
