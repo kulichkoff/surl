@@ -1,12 +1,18 @@
 package db
 
-import "github.com/redis/go-redis/v9"
+import (
+	"fmt"
+	"surl/internal/config"
+
+	"github.com/redis/go-redis/v9"
+)
 
 var RDB *redis.Client
 
 func init() {
+	cfg := config.GetConfig()
 	RDB = redis.NewClient(&redis.Options{
-		Addr:     "redis:6379",
+		Addr:     fmt.Sprintf("%s:%s", cfg.GetRedisHost(), cfg.GetRedisPort()),
 		Password: "",
 		DB:       0,
 	})
